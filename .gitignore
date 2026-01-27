@@ -1,0 +1,8 @@
+/target
+/.idea/.gitignore
+/.idea/AmazingMaze.iml
+/.idea/Basic.iml
+/.idea/rustlings.iml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/FIL-A2-RUST-TP.iml
