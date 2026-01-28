@@ -1,8 +1,13 @@
 /target
 /.idea/.gitignore
-/.idea/AmazingMaze.iml
-/.idea/Basic.iml
-/.idea/rustlings.iml
+/.idea/FIL-A2-RUST-TP.iml
 /.idea/modules.xml
 /.idea/vcs.xml
-/.idea/FIL-A2-RUST-TP.iml
+/AmazingMaze/.idea/.gitignore
+/AmazingMaze/.idea/AmazingMaze.iml
+/AmazingMaze/.idea/modules.xml
+/AmazingMaze/.idea/vcs.xml
+/rustlings/.idea/.gitignore
+/rustlings/.idea/modules.xml
+/rustlings/.idea/rustlings.iml
+/rustlings/.idea/vcs.xml
