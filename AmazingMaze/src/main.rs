@@ -8,33 +8,30 @@ enum Maze<'a> {
     Leaf { label: String },
 }
 
+fn leaf(label: &str) -> Maze {
+    Maze::Leaf { label: label.to_string() }
+}
+
+fn branch<'a>(label: &str, left: &'a Maze<'a>, right: &'a Maze<'a>) -> Maze<'a> {
+    Maze::Branch { label: label.to_string(), left, right }
+}
+
 fn main() {
-    let maze5 = Maze::Leaf{label: "5".to_string()};
+    let leaf4 = leaf("4");
+    let leaf5 = leaf("5");
+    let maze3 = branch("3", &leaf4, &leaf5);
 
-    let maze3 = Maze::Branch{
-        label: "3".to_string(),
-        left: &Maze::Leaf { label: "4".to_string() },
-        right: &maze5
-    };
 
-    let my_maze = Maze::Branch{
-        label: "0".to_string(),
-        left: &Maze::Branch {
-            label: "1".to_string(),
-            left: &Maze::Leaf {
-                label: "2".to_string()
-            },
-            right: &maze3 },
-        right: &Maze::Branch {
-            label: "6".to_string(),
-            left: &maze3,
-            right: &Maze::Branch {
-                label: "7".to_string(),
-                left: &maze5,
-                right: &Maze::Leaf {
-                    label: "8".to_string()
-                },
-            },
-        }
-    };
+    let my_maze = branch("0",
+                         &branch("1",
+                                 &leaf("2"),
+                                 &maze3),
+                         &branch("6",
+                                 &maze3,
+                                 &branch("7",
+                                         &leaf5,
+                                         &leaf("8"),
+                                 ),
+                         ),
+    );
 }
