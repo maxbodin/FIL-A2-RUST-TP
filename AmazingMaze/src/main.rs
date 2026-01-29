@@ -1,6 +1,7 @@
 use crate::Maze::{Branch, Leaf};
 use std::cell::RefCell;
 
+#[derive(PartialEq)]
 enum Exploration {
     UnExplored,
     Explored,
@@ -17,8 +18,12 @@ impl<'a> Maze<'a> {
             Leaf { label } => trace.push(label.to_string()),
             Branch { label, left, right, status } => {
                 trace.push(label.to_string());
-                left.explore(trace);
-                right.explore(trace);
+
+                if *status.borrow() == Exploration::UnExplored {
+                    status.replace(Exploration::Explored);
+                    left.explore(trace);
+                    right.explore(trace);
+                }
             }
         }
     }
@@ -52,10 +57,11 @@ fn main() {
 
     println!("{:?}", trace);
 
-    assert_eq!(
-            trace,
-            vec!["0", "1", "2", "3", "4", "5", "6", "3", "4", "5", "7", "5", "8"],
-    );
+    // Assert for first version without exploration status.
+    // assert_eq!(
+    //         trace,
+    //         vec!["0", "1", "2", "3", "4", "5", "6", "3", "4", "5", "7", "5", "8"],
+    // );
 
     assert_eq!(
             trace,
