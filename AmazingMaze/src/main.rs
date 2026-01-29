@@ -1,4 +1,5 @@
 use crate::Maze::{Branch, Leaf};
+use std::cell::RefCell;
 
 enum Exploration {
     UnExplored,
@@ -6,7 +7,7 @@ enum Exploration {
 }
 
 enum Maze<'a> {
-    Branch { label: String, left: &'a Maze<'a>, right: &'a Maze<'a> },
+    Branch { label: String, left: &'a Maze<'a>, right: &'a Maze<'a>, status: RefCell<Exploration> },
     Leaf { label: String },
 }
 
@@ -14,7 +15,7 @@ impl<'a> Maze<'a> {
     fn explore(&self, trace: &mut Vec<String>) {
         match self {
             Leaf { label } => trace.push(label.to_string()),
-            Branch { label, left, right } => {
+            Branch { label, left, right, status } => {
                 trace.push(label.to_string());
                 left.explore(trace);
                 right.explore(trace);
@@ -28,7 +29,7 @@ fn leaf(label: &str) -> Maze {
 }
 
 fn branch<'a>(label: &str, left: &'a Maze<'a>, right: &'a Maze<'a>) -> Maze<'a> {
-    Branch { label: label.to_string(), left, right }
+    Branch { label: label.to_string(), left, right, status: RefCell::new(Exploration::UnExplored) }
 }
 
 fn main() {
