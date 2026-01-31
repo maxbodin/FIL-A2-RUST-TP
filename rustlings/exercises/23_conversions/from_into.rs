@@ -34,17 +34,45 @@ impl Default for Person {
 // 5. Parse the second element from the split operation into a `u8` as the age.
 // 6. If parsing the age fails, return the default of `Person`.
 impl From<&str> for Person {
-    fn from(s: &str) -> Self {}
+    fn from(s: &str) -> Self {
+        let data = s.split(',');
+        let mut person: Person = Default::default();
+
+        let name = String::from(data.clone().nth(0).unwrap());
+        let age = data.clone().nth(1);
+
+        if data.clone().count() == 2 && name != "" && age != Option::from("")
+        {
+            person.name = name;
+
+            let age = age.unwrap().parse::<u8>();
+            match age {
+                Ok(age) => person.age = age,
+                Err(_) => { person = Person::default(); }
+            }
+        }
+
+        person
+    }
 }
 
 fn main() {
     // Use the `from` function.
     let p1 = Person::from("Mark,20");
-    println!("{p1:?}");
+    println!("p1: {p1:?}");
 
     // Since `From` is implemented for Person, we are able to use `Into`.
     let p2: Person = "Gerald,70".into();
-    println!("{p2:?}");
+    println!("p2: {p2:?}");
+
+    let p_bad_age = Person::from("Mark,twenty");
+    println!("p_bad_age: {p_bad_age:?}");
+
+    let p_missing_age: Person = Person::from("Mark,");
+    println!("p_missing_age: {p_missing_age:?}");
+
+    let p_bad_convert = Person::from("");
+    println!("p_bad_convert: {p_bad_convert:?}");
 }
 
 #[cfg(test)]
