@@ -1,5 +1,5 @@
 fn factorial(num: u64) -> u64 {
-    // TODO: Complete this function to return the factorial of `num` which is
+    // Complete this function to return the factorial of `num` which is
     // defined as `1 * 2 * 3 * … * num`.
     // https://en.wikipedia.org/wiki/Factorial
     //
@@ -10,6 +10,12 @@ fn factorial(num: u64) -> u64 {
     // - additional variables
     // For an extra challenge, don't use:
     // - recursion
+
+    fn _fact(n: u64, so_far: u64) -> u64 {
+        if n <= 1 { so_far } else { _fact(n - 1, so_far * n) }
+    }
+
+    _fact(num, 1)
 }
 
 fn main() {

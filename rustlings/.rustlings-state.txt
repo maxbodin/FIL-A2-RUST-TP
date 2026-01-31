@@ -1,6 +1,6 @@
 DON'T EDIT THIS FILE!
 
-tests3
+box1
 
 intro1
 intro2
@@ -71,3 +71,9 @@ lifetimes2
 lifetimes3
 tests1
 tests2
+tests3
+iterators1
+iterators2
+iterators3
+iterators4
+iterators5
